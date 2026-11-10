@@ -1,0 +1,20 @@
+Suggested Power BI DAX Measures
+
+Total Sales = SUM(sales_financial_dataset[Sales])
+
+Total Profit = SUM(sales_financial_dataset[Profit])
+
+Total Orders = DISTINCTCOUNT(sales_financial_dataset[Order_ID])
+
+Units Sold = SUM(sales_financial_dataset[Units_Sold])
+
+Profit Margin = DIVIDE([Total Profit], [Total Sales], 0)
+
+Sales Growth % =
+VAR CurrentSales = [Total Sales]
+VAR PreviousSales =
+    CALCULATE([Total Sales], DATEADD(sales_financial_dataset[Order_Date], -1, MONTH))
+RETURN
+    DIVIDE(CurrentSales - PreviousSales, PreviousSales, 0)
+
+Tip: In Power BI, set Order_Date to Date data type and create/use a proper Calendar table for robust time intelligence.
